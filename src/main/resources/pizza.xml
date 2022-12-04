@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd">
+        
+        <bean id="menuDao" class="pizza.dao.MenuDao">
+        <constructor-arg name="ds" ref="dataSource"/>
+        </bean>
+        
+         <bean id="pizzaInfoDao" class="pizza.dao.PizzaInfoDao">
+        <constructor-arg name="ds" ref="dataSource"/>
+        </bean>
+        
+         <bean id="menuService" class="pizza.service.MenuService">
+        <constructor-arg name="menuDao" ref="menuDao"/>
+         <constructor-arg name="pizzaInfoService" ref="pizzaInfoService"/>
+        </bean>
+        
+        <bean id="pizzaInfoService" class="pizza.service.PizzaInfoService">
+        <constructor-arg name="pizzaInfoDao" ref="pizzaInfoDao"/>
+        </bean> 
+        
+
+	<bean id="dataSource"
+		class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+		<property name="driverClass" value="org.postgresql.Driver" />
+		<property name="jdbcUrl"
+			value="jdbc:postgresql://localhost:5432/pizzeria" />
+		<property name="user" value="postgres" />
+		<property name="password" value="sql" />
+		<property name="minPoolSize" value="10" />
+		<property name="acquireIncrement" value="5" />
+		<property name="maxPoolSize" value="20" />
+		<property name="maxStatements" value="180" />
+	</bean>
+
+	<!-- more bean definitions go here -->
+
+</beans>
