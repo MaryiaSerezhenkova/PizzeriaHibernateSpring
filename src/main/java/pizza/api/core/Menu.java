@@ -9,10 +9,14 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 
 import pizza.api.IMenu;
 import pizza.api.IMenuRow;
 import pizza.api.dto.MenuDTO.Row;
+
+
 @Entity
 public class Menu implements IMenu, Serializable {
 	private static final long serialVersionUID = 1L;
@@ -27,7 +31,8 @@ public class Menu implements IMenu, Serializable {
 	private String name;
 	@Column(name = "enable")
 	private boolean enabled;
-
+	@OneToMany
+	@JoinColumn(name = "menu")
 	private List<IMenuRow> items;
 
 	public Menu(long id, LocalDateTime dtCreate, LocalDateTime dtUpdate, String name, boolean enabled) {

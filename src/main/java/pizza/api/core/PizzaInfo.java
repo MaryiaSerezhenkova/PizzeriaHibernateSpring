@@ -1,4 +1,6 @@
 package pizza.api.core;
+
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -9,8 +11,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import pizza.api.IPizzaInfo;
-
-
 
 @Entity
 public class PizzaInfo implements IPizzaInfo, Serializable {

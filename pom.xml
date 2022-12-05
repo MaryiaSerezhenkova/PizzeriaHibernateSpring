@@ -3,7 +3,7 @@
 	<groupId>PizzaHibernate</groupId>
 	<artifactId>PizzaHibernate</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<description>Pizzeria</description>
+	<description>PizzeriaHibernate</description>
 	<packaging>war</packaging>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -83,7 +83,7 @@
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
-			<artifactId>spring-context</artifactId>
+			<artifactId>spring-webmvc</artifactId>
 			<version>5.3.24</version>
 		</dependency>
 		<dependency>

@@ -1,5 +1,6 @@
 package pizza.api.core;
 
+
 import java.io.Serializable;
 
 import javax.persistence.Column;
@@ -12,6 +13,7 @@ import javax.persistence.OneToOne;
 
 import pizza.api.IMenuRow;
 import pizza.api.IPizzaInfo;
+
 @Entity
 public class MenuRow implements IMenuRow, Serializable {
 
