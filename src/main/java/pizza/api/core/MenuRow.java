@@ -10,16 +10,18 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 import pizza.api.IMenuRow;
 import pizza.api.IPizzaInfo;
 
 @Entity
+@Table(name = "menu_rows", schema="app")
 public class MenuRow implements IMenuRow, Serializable {
 
 	private static final long serialVersionUID = 1L;
 	@OneToOne
-    @JoinColumn(name = "info", referencedColumnName = "id")
+    @JoinColumn(name = "pizza", referencedColumnName = "id")
 	private IPizzaInfo pizzaInfo;
 	@Column
 	private double price;

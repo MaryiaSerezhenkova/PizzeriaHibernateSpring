@@ -2,25 +2,21 @@ package pizza.dao;
 
 import java.time.LocalDateTime;
 import java.util.List;
-
 import javax.persistence.EntityManager;
+import pizza.api.IOrder;
+import pizza.api.core.Order;
+import pizza.dao.api.IOrderDao;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
+public class OrderDao  implements IOrderDao {
+	private final EntityManager em;
+	private static final String SELECT_SQL = "SELECT id, dt_create, dt_update" + "FROM app.\"order\"";
+	public OrderDao(EntityManager em) {
+		super();
+		this.em = em;
+	}
 
-import pizza.api.IPizzaInfo;
-import pizza.api.core.PizzaInfo;
-import pizza.dao.api.IPizzaInfoDao;
-
-@Repository
-public class PizzaInfoDao implements IPizzaInfoDao {
-	@Autowired
-	private EntityManager em;
-	private static final String SELECT_SQL = "SELECT id, dt_create, dt_update, name, description, size"
-			+ "	FROM app.pizza_info;";
-
-
-	public IPizzaInfo create(IPizzaInfo item, EntityManager em) {
+	@Override
+	public IOrder create(IOrder item, EntityManager em) {
 		try {
 			em.getTransaction().begin();
 			em.persist(item);
@@ -30,69 +26,69 @@ public class PizzaInfoDao implements IPizzaInfoDao {
 			throw new RuntimeException("При сохранении данных произошла ошибка", e);
 		}
 	}
-
-	public IPizzaInfo read(long id) {
+	@Override
+	public IOrder read(long id) {
 		try {
 			em.getTransaction().begin();
-			PizzaInfo pizzaInfo = em.find(PizzaInfo.class, id);
-			if (pizzaInfo == null) {
+			Order order = em.find(Order.class, id);
+			if (order == null) {
 				throw new Exception("Такой записи не существует");
 			}
-			return pizzaInfo;
+			return order;
 		} catch (Exception e) {
 			throw new RuntimeException("При чтении данных произошла ошибка", e);
 		}
 	}
 
-	public List<IPizzaInfo> get() {
+
+	@Override
+	public List<IOrder> get() {
 		try {
 			em.getTransaction().begin();
-			List<IPizzaInfo> pizzaInfo = em.createQuery(SELECT_SQL).getResultList();
-			if (pizzaInfo == null) {
+			List<IOrder> order = em.createQuery(SELECT_SQL).getResultList();
+			if (order == null) {
 				throw new Exception("Такой записи не существует");
 			}
-			return pizzaInfo;
+			return order;
 		} catch (Exception e) {
 			throw new RuntimeException("При чтении данных произошла ошибка", e);
 		}
 	}
 
-	public IPizzaInfo update(long id, LocalDateTime dtUpdate, IPizzaInfo type, EntityManager em) {
+	@Override
+	public IOrder update(long id, LocalDateTime dtUpdate, IOrder type, EntityManager em) {
 		try {
 			em.getTransaction().begin();
-			PizzaInfo pizzaInfo = em.find(PizzaInfo.class, id);
-			if (pizzaInfo == null) {
+			Order order = em.find(Order.class, id);
+			if (order == null) {
 				throw new Exception("Такой записи не существует");
 			}
-			if (!pizzaInfo.getDtUpdate().equals(dtUpdate)) {
+			if (!order.getDtUpdate().equals(dtUpdate)) {
 				throw new RuntimeException("Запись устарела");
 			}
-			pizzaInfo.setDtUpdate(type.getDtUpdate());
-			pizzaInfo.setName(type.getName());
-			pizzaInfo.setDescription(type.getDescription());
-			pizzaInfo.setSize(type.getSize());
-			;
+			order.setDtUpdate(type.getDtUpdate());
+			order.setItems(type.getSelected());
 		} catch (Exception e) {
 			throw new RuntimeException("При чтении данных произошла ошибка", e);
 		}
 		return type;
 	}
 
+	@Override
 	public void delete(long id, LocalDateTime dtUpdate, EntityManager em) {
 		try {
 			em.getTransaction().begin();
-			PizzaInfo pizzaInfo = em.find(PizzaInfo.class, id);
-			if (pizzaInfo == null) {
+			Order order = em.find(Order.class, id);
+			if (order == null) {
 				throw new Exception("Такой записи не существует");
 			}
-			if (!pizzaInfo.getDtUpdate().equals(dtUpdate)) {
+			if (!order.getDtUpdate().equals(dtUpdate)) {
 				throw new RuntimeException("Запись устарела");
 			}
-			em.remove(pizzaInfo);
-
-			;
+			em.remove(order);
 		} catch (Exception e) {
 			throw new RuntimeException("При чтении данных произошла ошибка", e);
 		}
 	}
+
 }

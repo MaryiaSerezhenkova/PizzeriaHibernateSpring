@@ -23,10 +23,10 @@ import pizza.service.api.IMenuService;
 //CRUD controller
 //IMenu
 @RestController
-@RequestMapping("/menu2")
-public class MenuServlet2 {
+@RequestMapping("/menu")
+public class MenuServlet {
 
-	private final IMenuService menuService = MenuServiceSingleton.getInstance();
+	private final IMenuService menuService = null;
 
 	// Read POSITION
 	// 1) Read list
