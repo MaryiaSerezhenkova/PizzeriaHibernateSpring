@@ -13,7 +13,6 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import pizza.api.IMenuRow;
-import pizza.api.IPizzaInfo;
 
 @Entity
 @Table(name = "menu_rows", schema="app")
@@ -22,7 +21,7 @@ public class MenuRow implements IMenuRow, Serializable {
 	private static final long serialVersionUID = 1L;
 	@OneToOne
     @JoinColumn(name = "pizza", referencedColumnName = "id")
-	private IPizzaInfo pizzaInfo;
+	private PizzaInfo pizzaInfo;
 	@Column
 	private double price;
 	@Id
@@ -33,19 +32,10 @@ public class MenuRow implements IMenuRow, Serializable {
 		super();
 	}
 
-	public MenuRow(IPizzaInfo pizzaInfo, double price) {
+	public MenuRow(PizzaInfo pizzaInfo, double price) {
 		super();
 		this.pizzaInfo = pizzaInfo;
 		this.price = price;
-	}
-
-	public IPizzaInfo getInfo() {
-		return pizzaInfo;
-	}
-
-	public void setPizzaInfo(IPizzaInfo pizzaInfo) {
-		this.pizzaInfo = pizzaInfo;
-
 	}
 
 	public double getPrice() {
@@ -58,6 +48,17 @@ public class MenuRow implements IMenuRow, Serializable {
 
 	public long getId() {
 		return id;
+	}
+
+	@Override
+	public void setPizzaInfo(PizzaInfo pizzaInfo) {
+		this.pizzaInfo = pizzaInfo;
+		
+	}
+
+	@Override
+	public PizzaInfo getInfo() {
+		return pizzaInfo;
 	}
 
 }

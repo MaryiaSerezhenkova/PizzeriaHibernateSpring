@@ -3,6 +3,7 @@ package pizza.api;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import pizza.api.core.MenuRow;
 
 
 ///**
@@ -32,9 +33,8 @@ public interface IMenu {
 //     * Доступные к заказу пункты
 //     * @return пункты которые можно заказать
 //     */
-	List<IMenuRow> getItems();
+	List<MenuRow> getItems();
 
-	void getItems(List<IMenuRow> items);
 
 //    /**
 //     * Меню доступно к использованию для заказа?
@@ -47,5 +47,5 @@ public interface IMenu {
 	void setId(long id);
 
 
-	void setItems(List<IMenuRow> items);
+	void setItems(List<MenuRow> items);
 }

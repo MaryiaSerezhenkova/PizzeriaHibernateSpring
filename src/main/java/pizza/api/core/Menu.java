@@ -3,7 +3,6 @@ package pizza.api.core;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,7 +13,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import pizza.api.IMenu;
-import pizza.api.IMenuRow;
 import pizza.api.dto.MenuDTO.Row;
 
 
@@ -35,7 +33,7 @@ public class Menu implements IMenu, Serializable {
 	private boolean enabled;
 	@OneToMany
 	@JoinColumn(name = "menu", referencedColumnName = "id")
-	private List<IMenuRow> items;
+	private List<MenuRow> items;
 
 	public Menu(long id, LocalDateTime dtCreate, LocalDateTime dtUpdate, String name, boolean enabled) {
 		this.id = id;
@@ -45,10 +43,9 @@ public class Menu implements IMenu, Serializable {
 		this.enabled = enabled;
 	}
 
-	public Menu() {
-	}
+	
 
-	public Menu(List<IMenuRow> items) {
+	public Menu(List<MenuRow> items) {
 		this.items = items;
 	}
 
@@ -64,14 +61,8 @@ public class Menu implements IMenu, Serializable {
 	}
 
 
-	public Menu(String name, boolean enable, List<Row> items2) {
-		this.name = name;
-		this.enabled = enable;
-		
-	}
-
 	public Menu(long id, LocalDateTime dtCreate, LocalDateTime dtUpdate, String name, boolean enabled,
-			List<IMenuRow> items) {
+			List<MenuRow> items) {
 		this.id = id;
 		this.dtCreate = dtCreate;
 		this.dtUpdate = dtUpdate;
@@ -79,6 +70,13 @@ public class Menu implements IMenu, Serializable {
 		this.enabled = enabled;
 		this.items=items;
 	}
+
+	public Menu(String name, boolean enabled, List<Row> items) {
+		this.name = name;
+		this.enabled = enabled;
+	}
+
+
 
 	public long getId() {
 		return id;
@@ -96,10 +94,6 @@ public class Menu implements IMenu, Serializable {
 
 	public boolean isEnabled() {
 		return enabled;
-	}
-
-	public List<IMenuRow> getItems() {
-		return items;
 	}
 
 	@Override
@@ -130,13 +124,13 @@ public class Menu implements IMenu, Serializable {
 		
 	}
 
-	public void getItems(List<IMenuRow> items) {
-		return ;		
-	}
-
-	public void setItems(List<IMenuRow> items) {
+	public void setItems(List<MenuRow> items) {
 		this.items = items;
 		
 	}
 
+	@Override
+	public List<MenuRow> getItems() {
+		return items;
+	}
 }

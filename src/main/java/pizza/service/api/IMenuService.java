@@ -1,10 +1,10 @@
 package pizza.service.api;
 
-import pizza.api.IMenu;
 import pizza.api.IMenuRow;
+import pizza.api.core.Menu;
 import pizza.api.dto.MenuDTO;
 
-public interface IMenuService extends IService<IMenu, MenuDTO> {
+public interface IMenuService extends IService<Menu, MenuDTO> {
 	IMenuRow getRowById(long id);
 
 }

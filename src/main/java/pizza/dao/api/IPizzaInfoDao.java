@@ -1,8 +1,10 @@
 package pizza.dao.api;
 
-import pizza.api.IPizzaInfo;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface IPizzaInfoDao extends IDao<IPizzaInfo>  {
+import pizza.api.core.PizzaInfo;
+
+public interface IPizzaInfoDao extends JpaRepository<PizzaInfo, Long>  {
 
 
 }

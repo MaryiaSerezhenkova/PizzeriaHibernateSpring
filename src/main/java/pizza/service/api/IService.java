@@ -4,10 +4,11 @@ package pizza.service.api;
 import java.time.LocalDateTime;
 import java.util.List;
 
-public interface IService<TYPE, DTO> {
-    TYPE create(DTO dto);
-    TYPE read(long id);
-    List<TYPE> get();
-    TYPE update(long id, LocalDateTime dtUpdate, DTO dto);
+public interface IService<ENTITY, DTO> {
+    ENTITY create(DTO item);
+    ENTITY read(long id);
+    List<ENTITY> get();
+    ENTITY update(long id, LocalDateTime dtUpdate, DTO item);
     void delete(long id, LocalDateTime dtUpdate);
 }
+

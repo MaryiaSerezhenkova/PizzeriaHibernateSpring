@@ -1,12 +1,12 @@
 package pizza.api;
 
 
-import java.time.LocalDateTime;
+import pizza.api.core.PizzaInfo;
 
 public interface IMenuRow {
-	IPizzaInfo getInfo();
+	PizzaInfo getInfo();
 
-	void setPizzaInfo(IPizzaInfo pizzaInfo);
+	void setPizzaInfo(PizzaInfo pizzaInfo);
 
 	double getPrice();
 

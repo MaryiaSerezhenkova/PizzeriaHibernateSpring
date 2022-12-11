@@ -1,8 +1,8 @@
 package pizza.service.api;
 
-import pizza.api.IMenuRow;
+import pizza.api.core.MenuRow;
 import pizza.api.dto.MenuRowDTO;
 
-public interface IMenuRowService extends IService<IMenuRow, MenuRowDTO> {
+public interface IMenuRowService extends IService<MenuRow, MenuRowDTO> {
 
 }

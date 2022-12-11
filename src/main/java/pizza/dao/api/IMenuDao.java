@@ -1,10 +1,12 @@
 package pizza.dao.api;
 
 
-import pizza.api.IMenu;
-import pizza.api.IMenuRow;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface IMenuDao extends IDao<IMenu> {
+import pizza.api.IMenuRow;
+import pizza.api.core.PizzaInfo;
+
+public interface IMenuDao extends JpaRepository<PizzaInfo, Long> {
 
 	IMenuRow readByRowId(long id);
 

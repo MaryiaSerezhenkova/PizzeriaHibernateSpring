@@ -12,7 +12,7 @@ public class AppConfig {
 
 	@Bean(name = "EntityManager", destroyMethod = "close")
     public EntityManager getEntityManager() {
-        return Persistence.createEntityManagerFactory("hibernate").createEntityManager();
+        return Persistence.createEntityManagerFactory("pizza").createEntityManager();
     }
 
 }
