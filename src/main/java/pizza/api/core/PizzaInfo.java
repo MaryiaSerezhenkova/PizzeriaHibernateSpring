@@ -11,6 +11,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.springframework.data.annotation.Version;
+
 import pizza.api.IPizzaInfo;
 
 @Entity
@@ -24,6 +26,7 @@ public class PizzaInfo implements IPizzaInfo, Serializable {
 	@Column(name = "dt_create")
 	private LocalDateTime dtCreate;
 	@Column(name = "dt_update")
+	@Version
 	private LocalDateTime dtUpdate;
 	@Column
 	private String name;
