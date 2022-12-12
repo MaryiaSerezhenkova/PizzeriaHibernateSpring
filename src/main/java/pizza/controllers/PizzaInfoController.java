@@ -6,7 +6,6 @@ import java.time.ZoneId;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -16,20 +15,26 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import pizza.api.IPizzaInfo;
+import pizza.api.core.PizzaInfo;
 import pizza.api.dto.PizzaInfoDto;
 import pizza.service.PizzaInfoService;
-import pizza.service.api.IPizzaInfoService;
 
 @RestController
 @RequestMapping("/pizzaInfo")
 public class PizzaInfoController {
 
+
+	private final PizzaInfoService pizzaInfoService;
+	
+
 	@Autowired
-	private IPizzaInfoService pizzaInfoService;
+	public PizzaInfoController(PizzaInfoService pizzaInfoService) {
+		super();
+		this.pizzaInfoService = pizzaInfoService;
+	}
 
 	// Read POSITION
 	// 1) Read list
@@ -40,15 +45,15 @@ public class PizzaInfoController {
 	}
 
 	@GetMapping
-	protected ResponseEntity<List<IPizzaInfo>> getList(@PathVariable long id) {
+	protected ResponseEntity<List<PizzaInfo>> getList(@PathVariable long id) {
 		return ResponseEntity.ok(pizzaInfoService.get());
 	}
 
 	// CREATE POSITION
 	// body json
 	@PostMapping
-	public ResponseEntity<IPizzaInfo> doPost(@RequestBody PizzaInfoDto data) {
-		IPizzaInfo created = this.pizzaInfoService.create(data);
+	public ResponseEntity<PizzaInfo> doPost(@RequestBody PizzaInfoDto data) {
+		PizzaInfo created = this.pizzaInfoService.create(data);
 		return new ResponseEntity<>(created, HttpStatus.CREATED);
 	}
 
@@ -57,7 +62,7 @@ public class PizzaInfoController {
 	// need param version/date_update - optimistic lock
 	// body json
 	@PutMapping(value="/{id}/dtUpdate/{dt_update}")
-	protected ResponseEntity<IPizzaInfo> doPut(@PathVariable long id, @PathVariable("dt_update") long dtUpdateRow,
+	protected ResponseEntity<PizzaInfo> doPut(@PathVariable long id, @PathVariable("dt_update") long dtUpdateRow,
 			@RequestBody PizzaInfoDto data) {
 		LocalDateTime dtUpdate = LocalDateTime.ofInstant(Instant.ofEpochMilli(dtUpdateRow), ZoneId.of("UTC"));
 		return ResponseEntity.ok(this.pizzaInfoService.update(id, dtUpdate, data));

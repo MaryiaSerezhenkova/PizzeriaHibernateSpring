@@ -1,15 +1,12 @@
 package pizza.api.dto;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
 
-@Entity
 public class PizzaInfoDto {
-	@Column
+	
 	private String name;
-	@Column
+	
 	private String description;
-	@Column
+
 	private int size;
 
 	public PizzaInfoDto() {

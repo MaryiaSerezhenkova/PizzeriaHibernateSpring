@@ -4,6 +4,8 @@ package pizza.api;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import pizza.api.core.SelectedItem;
+
 /**
  * Заказ сформированный покупателем
  */
@@ -24,7 +26,9 @@ public interface IOrder {
 	 * 
 	 * @return список выбранного
 	 */
-	List<ISelectedItem> getSelected();
+	List<SelectedItem> getSelected();
 
-	void setItems(List<ISelectedItem> items);
+	void setItems(List<SelectedItem> items);
+
+
 }

@@ -7,17 +7,10 @@ import pizza.api.IOrderStatus;
 import pizza.api.core.OrderStatus;
 
 public class OrderStatusMapper {
-	@Component
-	@Scope(value = "prototype", proxyMode = ScopedProxyMode.TARGET_CLASS)
-	public class OrderMapper {
-
-		public OrderMapper() {
-			super();
-		}
-
-		public OrderStatus orderOutputMapping(IOrderStatus order) {
+	
+		public OrderStatus orderOutputMapping(OrderStatus order) {
 			return new OrderStatus(order.getTicket(), order.getHistory(), order.isDone());
 		}
 
 	}
-}
+

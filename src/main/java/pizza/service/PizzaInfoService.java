@@ -1,43 +1,53 @@
 package pizza.service;
 
+
 import java.time.LocalDateTime;
 import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import pizza.api.IPizzaInfo;
 import pizza.api.core.PizzaInfo;
 import pizza.api.dto.PizzaInfoDto;
 import pizza.api.mapper.PizzaInfoMapper;
-import pizza.dao.api.IPizzaInfoDao;
+import pizza.dao.PizzaInfoDao;
 import pizza.service.api.IPizzaInfoService;
 
 @Service
-@Transactional(readOnly=true)
 public class PizzaInfoService implements IPizzaInfoService {
+	@PersistenceContext
+	private final EntityManager entityManager;
 
-	  private final IPizzaInfoDao dao;
+	private final PizzaInfoDao pizzaInfoDao;
 
-	    public PizzaInfoService(IPizzaInfoDao dao) {
-	        this.dao = dao;
-	    }
+	@Autowired
+	public PizzaInfoService(EntityManager entityManager, PizzaInfoDao pizzaInfoDao) {
+		super();
+		this.entityManager = entityManager;
+		this.pizzaInfoDao = pizzaInfoDao;
+	}
 
 	@Override
 	public PizzaInfo read(long id) {
-		 return dao.getReferenceById(id);
+		return pizzaInfoDao.read(id);
 	}
 
 	@Override
 	public List<PizzaInfo> get() {
-		return dao.findAll();
+		return pizzaInfoDao.get();
 	}
-	
+
+	public PizzaInfo get(Long id) {
+		return PizzaInfoMapper.pizzaInfoOutputMapping(this.pizzaInfoDao.read(id));
+	}
+
 	@Override
-	@Transactional
 	public PizzaInfo update(long id, LocalDateTime dtUpdate, PizzaInfoDto item) {
-		PizzaInfo readed = dao.getReferenceById(id);
+		PizzaInfo readed = pizzaInfoDao.read(id);
 
 		if (readed == null) {
 			throw new IllegalArgumentException("Позиция не найдена");
@@ -52,13 +62,12 @@ public class PizzaInfoService implements IPizzaInfoService {
 		readed.setDescription(item.getDescription());
 		readed.setSize(item.getSize());
 
-		  return dao.save(readed);
+		return pizzaInfoDao.update(id, dtUpdate, readed, entityManager);
 	}
 
 	@Override
-	@Transactional
 	public void delete(long id, LocalDateTime dtUpdate) {
-		PizzaInfo readed = dao.getReferenceById(id);
+		IPizzaInfo readed = pizzaInfoDao.read(id);
 		if (readed == null) {
 			throw new IllegalArgumentException("Позиция не найдена");
 		}
@@ -67,22 +76,19 @@ public class PizzaInfoService implements IPizzaInfoService {
 			throw new IllegalArgumentException("К сожалению позиция уже была отредактирована кем-то другим");
 		}
 
-		dao.delete(readed);
-		
+		pizzaInfoDao.delete(id, dtUpdate, entityManager);
 
 	}
 
 	@Override
-	@Transactional
 	public PizzaInfo create(PizzaInfoDto dto) {
 
-//		em.getTransaction().begin();
-//		PizzaInfo pizzaInfo = this.pizzaInfoDao.create(PizzaInfoMapper.pizzaInfoInputMapping(dto), this.em);
-//		pizzaInfo.setDtCreate(LocalDateTime.now());
-//		pizzaInfo.setDtUpdate(pizzaInfo.getDtCreate());
-//		em.getTransaction().commit();
-//		return PizzaInfoMapper.pizzaInfoOutputMapping(this.pizzaInfoDao.create(pizzaInfo, em));
-		return null;
+		entityManager.getTransaction().begin();
+		PizzaInfo pizzaInfo = this.pizzaInfoDao.create(PizzaInfoMapper.pizzaInfoInputMapping(dto), this.entityManager);
+		pizzaInfo.setDtCreate(LocalDateTime.now());
+		pizzaInfo.setDtUpdate(pizzaInfo.getDtCreate());
+		entityManager.getTransaction().commit();
+		return PizzaInfoMapper.pizzaInfoOutputMapping(this.pizzaInfoDao.create(pizzaInfo, entityManager));
 	}
 
 }

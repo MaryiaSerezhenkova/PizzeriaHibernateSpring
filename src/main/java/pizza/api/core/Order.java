@@ -11,9 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
-
 import pizza.api.IOrder;
-import pizza.api.ISelectedItem;
 import pizza.api.dto.OrderDTO.Items;
 
 @Entity
@@ -29,14 +27,14 @@ public class Order implements IOrder, Serializable {
 	private LocalDateTime dtUpdate;
 	@OneToMany
 	@JoinColumn(name = "order")
-	private List<ISelectedItem> selectedItems;
+	private List<SelectedItem> selectedItems;
 
 	public Order() {
 		super();
 
 	}
 
-	public Order(long id, LocalDateTime dtCreate, LocalDateTime dtUpdate, List<ISelectedItem> selectedItems) {
+	public Order(long id, LocalDateTime dtCreate, LocalDateTime dtUpdate, List<SelectedItem> selectedItems) {
 		super();
 		this.id = id;
 		this.dtCreate = dtCreate;
@@ -80,7 +78,7 @@ public class Order implements IOrder, Serializable {
 	}
 
 	@Override
-	public List<ISelectedItem> getSelected() {
+	public List<SelectedItem> getSelected() {
 		return selectedItems;
 	}
 
@@ -100,7 +98,7 @@ public class Order implements IOrder, Serializable {
 	}
 
 	@Override
-	public void setItems(List<ISelectedItem> items) {
+	public void setItems(List<SelectedItem> items) {
 		this.selectedItems = items;
 		
 	}

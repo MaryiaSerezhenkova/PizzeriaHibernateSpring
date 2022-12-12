@@ -32,10 +32,10 @@ public class OrderStatus implements IOrderStatus, Serializable {
 	private LocalDateTime dtUpdate;
 	@OneToOne
     @JoinColumn(name = "ticket", referencedColumnName = "id")
-	private ITicket ticket;
+	private Ticket ticket;
 	@OneToMany
 	@JoinColumn(name = "stage")
-	private List<IStage> stages;
+	private List<Stage> stages;
 	@Column
 	private boolean isDone;
 
@@ -43,7 +43,7 @@ public class OrderStatus implements IOrderStatus, Serializable {
 		super();
 	}
 
-	public OrderStatus(long id, LocalDateTime dtCreate, LocalDateTime dtUpdate, ITicket ticket, List<IStage> stages,
+	public OrderStatus(long id, LocalDateTime dtCreate, LocalDateTime dtUpdate, Ticket ticket, List<Stage> stages,
 			boolean isDone) {
 		super();
 		this.id = id;
@@ -53,7 +53,7 @@ public class OrderStatus implements IOrderStatus, Serializable {
 		this.stages = stages;
 		this.isDone = isDone;
 	}
-	public OrderStatus(ITicket ticket, List<IStage> stages,
+	public OrderStatus(Ticket ticket, List<Stage> stages,
 			boolean isDone) {
 		super();
 		this.ticket = ticket;
@@ -62,12 +62,12 @@ public class OrderStatus implements IOrderStatus, Serializable {
 	}
 
 	@Override
-	public ITicket getTicket() {
+	public Ticket getTicket() {
 		return ticket;
 	}
 
 	@Override
-	public List<IStage> getHistory() {
+	public List<Stage> getHistory() {
 		return stages;
 	}
 
@@ -100,11 +100,11 @@ public class OrderStatus implements IOrderStatus, Serializable {
 		this.dtUpdate = dtUpdate;
 	}
 
-	public void setStages(List<IStage> stages) {
+	public void setStages(List<Stage> stages) {
 		this.stages = stages;
 	}
 
-	public void setTicket(ITicket ticket) {
+	public void setTicket(Ticket ticket) {
 		this.ticket = ticket;
 	}
 

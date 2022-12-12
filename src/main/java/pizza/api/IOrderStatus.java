@@ -2,6 +2,9 @@ package pizza.api;
 
 import java.util.List;
 
+import pizza.api.core.Stage;
+import pizza.api.core.Ticket;
+
 /**
  * Статус заказа выданный по определённому квитку
  */
@@ -11,13 +14,13 @@ public interface IOrderStatus {
      * По какому квитку мы получили статус
      * @return
      */
-    ITicket getTicket();
+    Ticket getTicket();
 
     /**
      * Получить список пройденных этапов
      * @return пройденные этапы заказа
      */
-    List<IStage> getHistory();
+    List<Stage> getHistory();
 
     /**
      * Признак готовности заказа

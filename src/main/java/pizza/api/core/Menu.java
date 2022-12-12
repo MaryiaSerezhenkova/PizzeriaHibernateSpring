@@ -3,6 +3,7 @@ package pizza.api.core;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,6 +14,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import pizza.api.IMenu;
+import pizza.api.IMenuRow;
 import pizza.api.dto.MenuDTO.Row;
 
 
@@ -43,7 +45,8 @@ public class Menu implements IMenu, Serializable {
 		this.enabled = enabled;
 	}
 
-	
+	public Menu() {
+	}
 
 	public Menu(List<MenuRow> items) {
 		this.items = items;
@@ -61,6 +64,12 @@ public class Menu implements IMenu, Serializable {
 	}
 
 
+	public Menu(String name, boolean enable, List<Row> items2) {
+		this.name = name;
+		this.enabled = enable;
+		
+	}
+
 	public Menu(long id, LocalDateTime dtCreate, LocalDateTime dtUpdate, String name, boolean enabled,
 			List<MenuRow> items) {
 		this.id = id;
@@ -70,13 +79,6 @@ public class Menu implements IMenu, Serializable {
 		this.enabled = enabled;
 		this.items=items;
 	}
-
-	public Menu(String name, boolean enabled, List<Row> items) {
-		this.name = name;
-		this.enabled = enabled;
-	}
-
-
 
 	public long getId() {
 		return id;
@@ -94,6 +96,10 @@ public class Menu implements IMenu, Serializable {
 
 	public boolean isEnabled() {
 		return enabled;
+	}
+
+	public List<MenuRow> getItems() {
+		return items;
 	}
 
 	@Override
@@ -124,13 +130,14 @@ public class Menu implements IMenu, Serializable {
 		
 	}
 
-	public void setItems(List<MenuRow> items) {
-		this.items = items;
+	public void getItems(List<MenuRow> items) {
+		return ;		
+	}
+
+
+	public void setItems(List<MenuRow> list) {
+		this.items=list;
 		
 	}
 
-	@Override
-	public List<MenuRow> getItems() {
-		return items;
-	}
 }

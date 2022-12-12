@@ -1,14 +1,12 @@
 package pizza.api.dto;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-@Entity
+
 public class MenuRowDTO {
-	@Column
+	
 	private long pizzaInfoId;
-	@Column
+
 	private double price;
-	@Column
+
 	private long menuId;
 
 	public MenuRowDTO() {

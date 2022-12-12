@@ -2,13 +2,8 @@ package pizza.api.dto;
 
 import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-@Entity
 public class MenuDTO {
-	@Column
 	private String name;
-	@Column (name="enable")
 	private boolean enabled;
 	private List<Row> items;
 

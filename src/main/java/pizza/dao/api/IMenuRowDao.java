@@ -1,8 +1,8 @@
 package pizza.dao.api;
 
-import pizza.api.IMenuRow;
+import pizza.api.core.MenuRow;
 
-public interface IMenuRowDao extends IDao<IMenuRow> {
+public interface IMenuRowDao extends IDao<MenuRow> {
 
 
 }

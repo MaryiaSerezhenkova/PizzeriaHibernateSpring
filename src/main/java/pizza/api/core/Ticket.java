@@ -25,14 +25,14 @@ public class Ticket implements ITicket, Serializable {
 	private int number;
 	@OneToOne
     @JoinColumn(name = "order", referencedColumnName = "id")
-	private IOrder order;
+	private Order order;
 
 	public Ticket(int number, Long orderId) {
 		super();
 		this.number = number;
 		}
 
-	public Ticket(long id, LocalDateTime dtCreate, int number, IOrder order) {
+	public Ticket(long id, LocalDateTime dtCreate, int number, Order order) {
 		super();
 		this.id = id;
 		this.dtCreate = dtCreate;
@@ -68,11 +68,11 @@ public class Ticket implements ITicket, Serializable {
 		this.number = number;
 	}
 
-	public void setOrder(IOrder order) {
+	public void setOrder(Order order) {
 		this.order = order;
 	}
 
-	public IOrder getOrder() {
+	public Order getOrder() {
 		return order;
 	}
 
